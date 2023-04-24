@@ -8,7 +8,7 @@
 import multiprocessing
 from multiprocessing import Process
 
-cuenta = 100
+cuenta = multiprocessing.Value('i', 100)
 
 #funcion que ingrese 100, 50 o 20 euros
 def ingreso():
@@ -38,6 +38,13 @@ def retiro():
             cuenta -= retiro
             print('Se ha retirado', cantidad, 'euros')
             print('La cuenta tiene', cuenta, 'euros')
+
+#funcion que ejecute los procesos
+def ejecutar_procesos(procesos):
+    for p in procesos:
+        p.start()
+    for p in procesos:
+        p.join()
 
 
 
@@ -77,21 +84,14 @@ for i in range(60):
     procesos_retiro.append(p)
 
 
-#funcion que ejecute los procesos
-def ejecutar_procesos(procesos):
-    for p in procesos:
-        p.start()
-    for p in procesos:
-        p.join()
-
 ejecutar_procesos(procesos_ingreso)
 ejecutar_procesos(procesos_retiro)
 
 
-
-print('La cuenta tiene', cuenta, 'euros')
-
 #comprobar que la cuenta tiene 100 euros
-if cuenta == 100:
-    print('La cuenta tiene 100 euros')
+if cuenta.value == 100:
+    print('El saldo final es correcto')
+
+else:
+    print('El saldo final no es correcto')
 
