@@ -3,6 +3,8 @@
 #Se parte de una cuenta con 100 euros y se pueden tener procesos que ingresen 100, 50 y 20 euros. Se pueden tener procesos que retiren 100, 50 y 20 euros.
 #Se desea tener los siguientes procesos: 40 procesos que ingresan 100, 20 procesos que ingresan 50, 60 procesos que ingresen 20
 #40 procesos que retiren 100, 20 procesos que retiren 50, 60 procesos que retiren 20
+#comprobar tras la ejecución que la cuenta tiene 100 euros, como al principio
+
 
 import multiprocessing
 
@@ -68,4 +70,10 @@ for i in range(60):
     p = multiprocessing.Process(target=retiro)
     p.start()
     p.join()
+
+print('La cuenta tiene', cuenta, 'euros')
+
+#comprobar que la cuenta tiene 100 euros
+if cuenta == 100:
+    print('La cuenta tiene 100 euros')
 
