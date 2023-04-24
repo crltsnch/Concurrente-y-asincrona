@@ -8,15 +8,64 @@ import multiprocessing
 
 cuenta = 100
 
-#funcion que ingrese 100 euros
+#funcion que ingrese 100, 50 o 20 euros
 def ingreso():
-    ingreso = input('Cuanto dinero desea ingresar?')
+    cantidad = input('Cuanto dinero desea ingresar?')
     global cuenta
-    if ingreso != 100 or ingreso != 50 or ingreso != 20:
-        print('No se puede ingresar esa cantidad')
+    if cantidad != 100:
+        if cantidad != 50:
+            if cantidad != 20:
+                print('No se puede ingresar esa cantidad')
     else:
         cuenta += ingreso
-        print('Se ha ingresado', ingreso, 'euros')
+        print('Se ha ingresado', cantidad, 'euros')
         print('La cuenta tiene', cuenta, 'euros')
 
+#funcion que retire 100, 50 o 20 euros
+def retiro():
+    cantidad = input('Cuanto dinero desea retirar?')
+    global cuenta
+    if cantidad != 100:
+        if cantidad != 50:
+            if cantidad != 20:
+                print('No se puede retirar esa cantidad')
+    else:
+        if cantidad > cuenta:
+            print('No se puede retirar esa cantidad')
+        else:
+            cuenta -= retiro
+            print('Se ha retirado', cantidad, 'euros')
+            print('La cuenta tiene', cuenta, 'euros')
+
+for i in range(40):
+    p = multiprocessing.Process(target=ingreso)
+    p.start()
+
+#hacer 20 procesos que ingresen 50 euros
+for i in range(20):
+    p = multiprocessing.Process(target=ingreso)
+    p.start()
+    p.join()
+
+#hacer 60 procesos que ingresen 20 euros
+for i in range(60):
+    p = multiprocessing.Process(target=ingreso)
+    p.start()
+    p.join()
+
+#hacer 40 procesos que retiren 100 euros
+for i in range(40):
+    p = multiprocessing.Process(target=retiro)
+    p.start()
+    p.join()
+
+for i in range(20):
+    p = multiprocessing.Process(target=retiro)
+    p.start()
+    p.join()
+
+for i in range(60):
+    p = multiprocessing.Process(target=retiro)
+    p.start()
+    p.join()
 
