@@ -6,9 +6,17 @@
 
 import multiprocessing
 
-cuenta = 0
+cuenta = 100
 
 #funcion que ingrese 100 euros
-def ingreso100():
+def ingreso():
+    ingreso = input('Cuanto dinero desea ingresar?')
     global cuenta
-    cuenta += 100
+    if ingreso != 100 or ingreso != 50 or ingreso != 20:
+        print('No se puede ingresar esa cantidad')
+    else:
+        cuenta += ingreso
+        print('Se ha ingresado', ingreso, 'euros')
+        print('La cuenta tiene', cuenta, 'euros')
+
+
