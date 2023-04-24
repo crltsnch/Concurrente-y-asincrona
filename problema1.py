@@ -5,8 +5,8 @@
 #40 procesos que retiren 100, 20 procesos que retiren 50, 60 procesos que retiren 20
 #comprobar tras la ejecución que la cuenta tiene 100 euros, como al principio
 
-
 import multiprocessing
+from multiprocessing import Process
 
 cuenta = 100
 
@@ -39,37 +39,55 @@ def retiro():
             print('Se ha retirado', cantidad, 'euros')
             print('La cuenta tiene', cuenta, 'euros')
 
+
+
+'''Procesos de ingreso'''
+procesos_ingreso = []
+#hacer 40 procesos que ingresen 100 euros
 for i in range(40):
-    p = multiprocessing.Process(target=ingreso)
-    p.start()
+    p = multiprocessing.Process(target=ingreso, args=[100])
+    procesos_ingreso.append(p)
 
 #hacer 20 procesos que ingresen 50 euros
 for i in range(20):
-    p = multiprocessing.Process(target=ingreso)
-    p.start()
-    p.join()
+    p = multiprocessing.Process(target=ingreso, args=[50])
+    procesos_ingreso.append(p)
 
 #hacer 60 procesos que ingresen 20 euros
 for i in range(60):
-    p = multiprocessing.Process(target=ingreso)
-    p.start()
-    p.join()
+    p = multiprocessing.Process(target=ingreso, args=[20])
+    procesos_ingreso.append(p)
 
+
+'''Procesos de retiro'''
+procesos_retiro = []
 #hacer 40 procesos que retiren 100 euros
 for i in range(40):
-    p = multiprocessing.Process(target=retiro)
-    p.start()
-    p.join()
+    p = multiprocessing.Process(target=retiro, args=[100])
+    procesos_retiro.append(p)
 
+#hacer 20 procesos que retiren 50 euros
 for i in range(20):
-    p = multiprocessing.Process(target=retiro)
-    p.start()
-    p.join()
+    p = multiprocessing.Process(target=retiro, args=[50])
+    procesos_retiro.append(p)
 
+#hacer 60 procesos que retiren 20 euros
 for i in range(60):
-    p = multiprocessing.Process(target=retiro)
-    p.start()
-    p.join()
+    p = multiprocessing.Process(target=retiro, args=[20])
+    procesos_retiro.append(p)
+
+
+#funcion que ejecute los procesos
+def ejecutar_procesos(procesos):
+    for p in procesos:
+        p.start()
+    for p in procesos:
+        p.join()
+
+ejecutar_procesos(procesos_ingreso)
+ejecutar_procesos(procesos_retiro)
+
+
 
 print('La cuenta tiene', cuenta, 'euros')
 
