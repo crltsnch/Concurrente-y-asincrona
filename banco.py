@@ -47,7 +47,6 @@ def ejecutar_procesos(procesos):
         p.join()
 
 
-
 '''Procesos de ingreso'''
 procesos_ingreso = []
 #hacer 40 procesos que ingresen 100 euros
